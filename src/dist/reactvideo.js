@@ -69,8 +69,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	// testTag is tag for testing VideoComponent
 	var testTag = document.getElementById("react-video-test");
-
 	if (testTag) {
 	    (0, _reactDom.render)(_react2.default.createElement(_videocomponent2.default, null), testTag);
 	}
@@ -21480,7 +21480,8 @@
 	            duration: undefined,
 	            ended: false,
 	            dragok: false,
-	            mouseOver: true
+	            mouseOver: true,
+	            fullscreen: false
 	        };
 
 	        _this.componentDidMount = _this.componentDidMount.bind(_this);
@@ -21493,6 +21494,8 @@
 	        _this.progressControllerOnClick = _this.progressControllerOnClick.bind(_this);
 	        _this.progressControllerOnMouseMove = _this.progressControllerOnMouseMove.bind(_this);
 	        _this.progressControllerOnMouseUp = _this.progressControllerOnMouseUp.bind(_this);
+	        _this.requestFullScreen = _this.requestFullScreen.bind(_this);
+	        _this.exitFullScreen = _this.exitFullScreen.bind(_this);
 	        return _this;
 	    }
 
@@ -21566,6 +21569,25 @@
 	            this.setState({
 	                play: false
 	            });
+	        }
+	    }, {
+	        key: "requestFullScreen",
+	        value: function requestFullScreen(e) {
+	            var video = document.getElementById("video_" + this.props.counter);
+	            video.webkitRequestFullScreen();
+	            this.setState({
+	                fullscreen: true
+	            });
+	        }
+	    }, {
+	        key: "exitFullScreen",
+	        value: function exitFullScreen(e) {
+	            if (document.webkitIsFullScreen) {
+	                document.webkitCancelFullScreen();
+	                this.setState({
+	                    fullscreen: false
+	                });
+	            }
 	        }
 	    }, {
 	        key: "progressControllerOnClick",
@@ -21685,6 +21707,19 @@
 	                            {
 	                                className: "duration" },
 	                            this.state.duration ? timeToString(this.state.duration) : "00:00"
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "span",
+	                        { className: "right-controls" },
+	                        this.state.fullscreen ? _react2.default.createElement(
+	                            "span",
+	                            { className: "request-fullscreen", onClick: this.exitFullScreen },
+	                            _react2.default.createElement("i", { className: "fa fa-compress icon" })
+	                        ) : _react2.default.createElement(
+	                            "span",
+	                            { className: "request-fullscreen", onClick: this.requestFullScreen },
+	                            _react2.default.createElement("i", { className: "fa fa-arrows-alt icon" })
 	                        )
 	                    )
 	                ) : false

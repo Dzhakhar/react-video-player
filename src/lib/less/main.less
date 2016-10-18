@@ -4,6 +4,12 @@
 
   video {
     width: 100%;
+    &::-webkit-media-controls {
+      display: none !important;
+    }
+    &::-webkit-media-controls-enclosure {
+      display: none !important;
+    }
   }
 
   .video-cover {
@@ -14,6 +20,7 @@
     right: 0;
     background: transparent;
     cursor: pointer;
+    z-index: 2147483647;
   }
 
   .video-controls {
@@ -30,7 +37,7 @@
     right: 0px;
     padding: 5px 10px;
     padding-bottom: 8px;
-    z-index: 50;
+    z-index: 2147483647;
 
     .video-progress {
       width: 100%;
@@ -74,6 +81,11 @@
         font-size: 20px;
         cursor: pointer;
       }
+    }
+
+    & > .right-controls {
+      float: right;
+      margin-right: 10px;
     }
 
     .time-bar {

@@ -5,6 +5,12 @@
 .react-video-player video {
   width: 100%;
 }
+.react-video-player video::-webkit-media-controls {
+  display: none !important;
+}
+.react-video-player video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
 .react-video-player .video-cover {
   position: absolute;
   left: 0;
@@ -13,6 +19,7 @@
   right: 0;
   background: transparent;
   cursor: pointer;
+  z-index: 2147483647;
 }
 .react-video-player .video-controls {
   transition: .5s;
@@ -32,7 +39,7 @@
   right: 0px;
   padding: 5px 10px;
   padding-bottom: 8px;
-  z-index: 50;
+  z-index: 2147483647;
 }
 .react-video-player .video-controls .video-progress {
   width: 100%;
@@ -71,6 +78,10 @@
   color: #fff;
   font-size: 20px;
   cursor: pointer;
+}
+.react-video-player .video-controls > .right-controls {
+  float: right;
+  margin-right: 10px;
 }
 .react-video-player .video-controls .time-bar {
   position: relative;

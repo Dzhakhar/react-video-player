@@ -10,7 +10,8 @@ class VideoPlayer extends React.Component {
             duration: undefined,
             ended: false,
             dragok: false,
-            mouseOver: true
+            mouseOver: true,
+            fullscreen: false
         }
 
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -23,6 +24,8 @@ class VideoPlayer extends React.Component {
         this.progressControllerOnClick = this.progressControllerOnClick.bind(this);
         this.progressControllerOnMouseMove = this.progressControllerOnMouseMove.bind(this);
         this.progressControllerOnMouseUp = this.progressControllerOnMouseUp.bind(this);
+        this.requestFullScreen = this.requestFullScreen.bind(this);
+        this.exitFullScreen = this.exitFullScreen.bind(this);
     }
 
     parseTime(sec) {
@@ -90,6 +93,23 @@ class VideoPlayer extends React.Component {
         this.setState({
             play: false
         })
+    }
+
+    requestFullScreen(e) {
+        let video = document.getElementById("video_" + this.props.counter);
+        video.webkitRequestFullScreen();
+        this.setState({
+            fullscreen: true
+        })
+    }
+
+    exitFullScreen(e) {
+        if (document.webkitIsFullScreen) {
+            document.webkitCancelFullScreen();
+            this.setState({
+                fullscreen: false
+            })
+        }
     }
 
     progressControllerOnClick(e) {
@@ -175,6 +195,13 @@ class VideoPlayer extends React.Component {
                     <span className="time-divider">/</span>
                     <span
                         className="duration">{(this.state.duration) ? timeToString(this.state.duration) : "00:00"}</span>
+                </span>
+                <span className="right-controls">
+                    {(this.state.fullscreen) ? <span className="request-fullscreen" onClick={this.exitFullScreen}>
+                        <i className="fa fa-compress icon"></i>
+                    </span> : <span className="request-fullscreen" onClick={this.requestFullScreen}>
+                        <i className="fa fa-arrows-alt icon"></i>
+                    </span>}
                 </span>
             </div> : false}
         </div>
