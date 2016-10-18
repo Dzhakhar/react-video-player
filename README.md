@@ -1,4 +1,4 @@
-# react-video-player
+# dureact
 Dureact is ReactJS video player for html5 compatible browsers
 
 # usage
