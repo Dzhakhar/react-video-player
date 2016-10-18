@@ -126,7 +126,11 @@ var VideoPlayer = function (_React$Component) {
         key: "requestFullScreen",
         value: function requestFullScreen(e) {
             var video = document.getElementById("video_" + this.props.counter);
-            video.webkitRequestFullScreen();
+            if (video.webkitRequestFullScreen) {
+                video.webkitRequestFullScreen();
+            } else if (video.mozRequestFullScreen) {
+                video.mozRequestFullScreen();
+            }
             this.setState({
                 fullscreen: true
             });
@@ -134,10 +138,12 @@ var VideoPlayer = function (_React$Component) {
     }, {
         key: "exitFullScreen",
         value: function exitFullScreen(e) {
+            var video = document.getElementById("video_" + this.props.counter);
             if (document.webkitIsFullScreen) {
-                document.webkitCancelFullScreen();
                 this.setState({
                     fullscreen: false
+                }, function () {
+                    document.webkitCancelFullScreen();
                 });
             }
         }
@@ -237,7 +243,7 @@ var VideoPlayer = function (_React$Component) {
                     _react2.default.createElement(
                         "span",
                         null,
-                        _react2.default.createElement("i", { className: "volume up icon" })
+                        _react2.default.createElement("i", { className: "fa fa-volume-up icon" })
                     ),
                     _react2.default.createElement(
                         "span",
@@ -263,7 +269,7 @@ var VideoPlayer = function (_React$Component) {
                     _react2.default.createElement(
                         "span",
                         { className: "right-controls" },
-                        this.state.fullscreen ? _react2.default.createElement(
+                        this.state.fullscreen || document.webkitIsFullScreen ? _react2.default.createElement(
                             "span",
                             { className: "request-fullscreen", onClick: this.exitFullScreen },
                             _react2.default.createElement("i", { className: "fa fa-compress icon" })

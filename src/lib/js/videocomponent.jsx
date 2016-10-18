@@ -191,9 +191,9 @@ class VideoPlayer extends React.Component {
                     <div className="loaded"></div>
                 </div>
                 {(this.state.play) ? <span onClick={(this.state.ended) ? this.playVideo : this.pauseVideo}><i
-                    className={(this.state.ended) ? "fa fa-refresh icon" : "fa fa-pause icon"}></i></span> :
-                    <span onClick={this.playVideo}><i className="fa fa-play icon"></i></span>}
-                <span><i className="fa fa-volume-up icon"></i></span>
+                    className={(this.state.ended) ? "fa fa-refresh control-icon" : "fa fa-pause control-icon"}></i></span> :
+                    <span onClick={this.playVideo}><i className="fa fa-play control-icon"></i></span>}
+                <span><i className="fa fa-volume-up control-icon"></i></span>
                 <span className="time-bar">
                     <span
                         className="current-time">{(this.state.currentTime) ? timeToString(this.state.currentTime) : "00:00"}</span>
@@ -203,9 +203,9 @@ class VideoPlayer extends React.Component {
                 </span>
                 <span className="right-controls">
                     {(this.state.fullscreen || document.webkitIsFullScreen) ? <span className="request-fullscreen" onClick={this.exitFullScreen}>
-                        <i className="fa fa-compress icon"></i>
+                        <i className="fa fa-compress control-icon"></i>
                     </span> : <span className="request-fullscreen" onClick={this.requestFullScreen}>
-                        <i className="fa fa-arrows-alt icon"></i>
+                        <i className="fa fa-arrows-alt control-icon"></i>
                     </span>}
                 </span>
             </div> : false}
