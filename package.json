@@ -1,12 +1,19 @@
 {
-  "name": "reactvideo",
+  "name": "dureact",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Dureact is ReactJS video player for html5 compatible browsers",
+  "main": "index.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Dzhakhar Ukhaev",
+  "keywords": [
+    "react",
+    "video",
+    "player",
+    "dureact",
+    "html5 video player"
+  ],
+  "author": "Dzhakhar Ukhaev <dzhakhar.ukhaev@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "babel-core": "^6.13.2",
@@ -33,5 +40,13 @@
     "react": "^15.3.1",
     "react-addons-css-transition-group": "^15.3.1",
     "style-loader": "^0.13.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dzhakhar/react-video-player.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dzhakhar/react-video-player/issues"
+  },
+  "homepage": "https://github.com/Dzhakhar/react-video-player#readme"
 }
