@@ -234,16 +234,16 @@ var VideoPlayer = function (_React$Component) {
                         "span",
                         { onClick: this.state.ended ? this.playVideo : this.pauseVideo },
                         _react2.default.createElement("i", {
-                            className: this.state.ended ? "fa fa-refresh icon" : "fa fa-pause icon" })
+                            className: this.state.ended ? "fa fa-refresh control-icon" : "fa fa-pause control-icon" })
                     ) : _react2.default.createElement(
                         "span",
                         { onClick: this.playVideo },
-                        _react2.default.createElement("i", { className: "fa fa-play icon" })
+                        _react2.default.createElement("i", { className: "fa fa-play control-icon" })
                     ),
                     _react2.default.createElement(
                         "span",
                         null,
-                        _react2.default.createElement("i", { className: "fa fa-volume-up icon" })
+                        _react2.default.createElement("i", { className: "fa fa-volume-up control-icon" })
                     ),
                     _react2.default.createElement(
                         "span",
@@ -272,11 +272,11 @@ var VideoPlayer = function (_React$Component) {
                         this.state.fullscreen || document.webkitIsFullScreen ? _react2.default.createElement(
                             "span",
                             { className: "request-fullscreen", onClick: this.exitFullScreen },
-                            _react2.default.createElement("i", { className: "fa fa-compress icon" })
+                            _react2.default.createElement("i", { className: "fa fa-compress control-icon" })
                         ) : _react2.default.createElement(
                             "span",
                             { className: "request-fullscreen", onClick: this.requestFullScreen },
-                            _react2.default.createElement("i", { className: "fa fa-arrows-alt icon" })
+                            _react2.default.createElement("i", { className: "fa fa-arrows-alt control-icon" })
                         )
                     )
                 ) : false
