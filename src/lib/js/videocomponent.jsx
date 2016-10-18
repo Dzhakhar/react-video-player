@@ -97,17 +97,23 @@ class VideoPlayer extends React.Component {
 
     requestFullScreen(e) {
         let video = document.getElementById("video_" + this.props.counter);
-        video.webkitRequestFullScreen();
+        if(video.webkitRequestFullScreen){
+            video.webkitRequestFullScreen();
+        } else if(video.mozRequestFullScreen){
+            video.mozRequestFullScreen();
+        }
         this.setState({
             fullscreen: true
         })
     }
 
     exitFullScreen(e) {
+        let video = document.getElementById("video_" + this.props.counter);
         if (document.webkitIsFullScreen) {
-            document.webkitCancelFullScreen();
             this.setState({
                 fullscreen: false
+            }, ()=>{
+                document.webkitCancelFullScreen();
             })
         }
     }
@@ -187,7 +193,7 @@ class VideoPlayer extends React.Component {
                 {(this.state.play) ? <span onClick={(this.state.ended) ? this.playVideo : this.pauseVideo}><i
                     className={(this.state.ended) ? "fa fa-refresh icon" : "fa fa-pause icon"}></i></span> :
                     <span onClick={this.playVideo}><i className="fa fa-play icon"></i></span>}
-                <span><i className="volume up icon"></i></span>
+                <span><i className="fa fa-volume-up icon"></i></span>
                 <span className="time-bar">
                     <span
                         className="current-time">{(this.state.currentTime) ? timeToString(this.state.currentTime) : "00:00"}</span>
@@ -196,7 +202,7 @@ class VideoPlayer extends React.Component {
                         className="duration">{(this.state.duration) ? timeToString(this.state.duration) : "00:00"}</span>
                 </span>
                 <span className="right-controls">
-                    {(this.state.fullscreen) ? <span className="request-fullscreen" onClick={this.exitFullScreen}>
+                    {(this.state.fullscreen || document.webkitIsFullScreen) ? <span className="request-fullscreen" onClick={this.exitFullScreen}>
                         <i className="fa fa-compress icon"></i>
                     </span> : <span className="request-fullscreen" onClick={this.requestFullScreen}>
                         <i className="fa fa-arrows-alt icon"></i>
