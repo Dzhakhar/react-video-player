@@ -8,8 +8,7 @@ var LESS_DIR = path.resolve(__dirname, "src/lib/less");
 
 var config = {
     entry: {
-        reactvideo: [APP_DIR + "/index.jsx"],
-        less: [LESS_DIR + "/main.less"]
+        reactvideo: [APP_DIR + "/index.jsx"]
     },
     output: {
         path: BUILD_DIR,
