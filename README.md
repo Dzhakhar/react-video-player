@@ -1,16 +1,9 @@
 # react-video-player
-```html
-<html>
-  <head>
-    <link rel="stylesheet" href="src/dist/css/style.css"> <!-- include css file -->
-  </head>
-  <body>
-    <div id="myvideos"></div>
+Dureact is ReactJS video player for html5 compatible browsers
 
-    <script src="https://use.fontawesome.com/485ba5c478.js"></script> <!-- include font-awesome -->
-    <script src="src/dist/reactvideo.js"></script>
-  </body>
-</html>
+# usage
+```
+npm install dureact
 ```
 
 ```javascript
@@ -19,6 +12,10 @@ import {render} from "react-dom";
 
 render(<VideoPlayer videoSrc="http://site.com/myawesomevideo.mp4"/>,
       document.getElementById("myvideos"));
+```
+
+```html
+<div id="myvideos"></div>
 ```
 
 #contributing
