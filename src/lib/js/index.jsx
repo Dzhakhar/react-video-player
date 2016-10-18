@@ -5,5 +5,5 @@ import React from "react";
 // testTag is tag for testing VideoComponent
 var testTag = document.getElementById("react-video-test");
 if (testTag) {
-    render(<ReactVideo/>, testTag);
+    render(<ReactVideo videoSrc="http://www.w3schools.com/html/mov_bbb.mp4"/>, testTag);
 }

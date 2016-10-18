@@ -72,7 +72,7 @@
 	// testTag is tag for testing VideoComponent
 	var testTag = document.getElementById("react-video-test");
 	if (testTag) {
-	    (0, _reactDom.render)(_react2.default.createElement(_videocomponent2.default, null), testTag);
+	    (0, _reactDom.render)(_react2.default.createElement(_videocomponent2.default, { videoSrc: "http://www.w3schools.com/html/mov_bbb.mp4" }), testTag);
 	}
 
 /***/ },
@@ -21648,8 +21648,7 @@
 	                        onLoadedData: this.onLoadedData,
 	                        onEnded: this.onEnded
 	                    },
-	                    _react2.default.createElement("source", { src: "http://www.w3schools.com/html/mov_bbb.mp4", type: "video/mp4" }),
-	                    _react2.default.createElement("source", { src: "http://www.w3schools.com/html/mov_bbb.ogg", type: "video/ogg" }),
+	                    _react2.default.createElement("source", { src: this.props.videoSrc, type: "video/mp4" }),
 	                    "Your browser does not support HTML5 video."
 	                ),
 	                _react2.default.createElement("div", { className: "video-cover", onClick: this.state.play ? this.pauseVideo : this.playVideo }),
