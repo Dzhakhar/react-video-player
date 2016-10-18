@@ -2,8 +2,9 @@
   "name": "dureact",
   "version": "1.0.0",
   "description": "Dureact is ReactJS video player for html5 compatible browsers",
-  "main": "index.jsx",
+  "main": "index.js",
   "scripts": {
+    "prepublish": "babel src/lib/js/videocomponent.jsx --out-file index.js --source-map --presets es2015,react",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
