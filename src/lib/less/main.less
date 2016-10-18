@@ -1,0 +1,90 @@
+.react-video-player {
+  position: relative;
+  overflow: hidden;
+
+  video {
+    width: 100%;
+  }
+
+  .video-cover {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .video-controls {
+    //background: rgba(44,62,80, .4);
+    transition: .5s;
+    background: transparent; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(transparent, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)); /* Standard syntax (must be last) */
+    position: absolute;
+    bottom: 3px;
+    left: 0px;
+    right: 0px;
+    padding: 5px 10px;
+    padding-bottom: 8px;
+    z-index: 50;
+
+    .video-progress {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, .2);
+      margin-bottom: 10px;
+      cursor: pointer;
+
+      &:hover {
+        height: 6px;
+      }
+
+      .full {
+        height: 100%;
+        background: #2A3356;
+        position: relative;
+        transition: .2s;
+
+        .progress-controller {
+          background: red;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          border-radius: 50%;
+          width: 15px;
+          height: 15px;
+          display: block;
+          position: absolute;
+          right: -10px;
+          top: -5px;
+          bottom: 0;
+        }
+      }
+    }
+
+    & > span {
+      margin-left: 10px;
+      display: inline-block;
+
+      .icon {
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
+
+    .time-bar {
+      position: relative;
+      top: -2px;
+      margin-left: 10px;
+
+      .time-divider, .current-time, .duration {
+        color: #fff;
+        margin: 0;
+      }
+    }
+  }
+}

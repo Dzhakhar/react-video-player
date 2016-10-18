@@ -1,0 +1,85 @@
+.react-video-player {
+  position: relative;
+  overflow: hidden;
+}
+.react-video-player video {
+  width: 100%;
+}
+.react-video-player .video-cover {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.react-video-player .video-controls {
+  transition: .5s;
+  background: transparent;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.5), #000000);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.5), #000000);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(transparent, rgba(0, 0, 0, 0.5), #000000);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.5), #000000);
+  /* Standard syntax (must be last) */
+  position: absolute;
+  bottom: 3px;
+  left: 0px;
+  right: 0px;
+  padding: 5px 10px;
+  padding-bottom: 8px;
+  z-index: 50;
+}
+.react-video-player .video-controls .video-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.react-video-player .video-controls .video-progress:hover {
+  height: 6px;
+}
+.react-video-player .video-controls .video-progress .full {
+  height: 100%;
+  background: #2A3356;
+  position: relative;
+  transition: .2s;
+}
+.react-video-player .video-controls .video-progress .full .progress-controller {
+  background: red;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  display: block;
+  position: absolute;
+  right: -10px;
+  top: -5px;
+  bottom: 0;
+}
+.react-video-player .video-controls > span {
+  margin-left: 10px;
+  display: inline-block;
+}
+.react-video-player .video-controls > span .icon {
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+.react-video-player .video-controls .time-bar {
+  position: relative;
+  top: -2px;
+  margin-left: 10px;
+}
+.react-video-player .video-controls .time-bar .time-divider,
+.react-video-player .video-controls .time-bar .current-time,
+.react-video-player .video-controls .time-bar .duration {
+  color: #fff;
+  margin: 0;
+}
