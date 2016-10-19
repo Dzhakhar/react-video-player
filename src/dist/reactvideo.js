@@ -114,9 +114,11 @@
 	            ended: false,
 	            dragok: false,
 	            mouseOver: true,
-	            fullscreen: false
+	            fullscreen: false,
+	            inputActive: false
 	        };
 
+	        _this.coverOnClick = _this.coverOnClick.bind(_this);
 	        _this.componentDidMount = _this.componentDidMount.bind(_this);
 	        _this.playVideo = _this.playVideo.bind(_this);
 	        _this.pauseVideo = _this.pauseVideo.bind(_this);
@@ -129,6 +131,8 @@
 	        _this.progressControllerOnMouseUp = _this.progressControllerOnMouseUp.bind(_this);
 	        _this.requestFullScreen = _this.requestFullScreen.bind(_this);
 	        _this.exitFullScreen = _this.exitFullScreen.bind(_this);
+	        _this.rewind = _this.rewind.bind(_this);
+	        _this.onArrowClick = _this.onArrowClick.bind(_this);
 	        return _this;
 	    }
 
@@ -150,6 +154,10 @@
 	        value: function componentDidMount() {
 	            var self = this;
 	            var video = document.getElementById("video_" + this.props.counter);
+
+	            if (this.state.inputActive) {
+	                document.getElementById("video_input_" + this.props.counter).focus();
+	            }
 
 	            video.addEventListener('loadstart', function (e) {});
 
@@ -204,6 +212,64 @@
 	            });
 	        }
 	    }, {
+	        key: "coverOnClick",
+	        value: function coverOnClick(e) {
+	            var _this2 = this;
+
+	            var self = this;
+
+	            self.setState({
+	                inputActive: true
+	            }, function () {
+	                document.getElementById("video_input_" + _this2.props.counter).focus();
+	            });
+
+	            return this.state.play ? this.pauseVideo(e) : this.playVideo(e);
+	        }
+	    }, {
+	        key: "rewind",
+	        value: function rewind(time, increase) {
+	            var self = this;
+	            var video = document.getElementById("video_" + this.props.counter);
+
+	            if (increase) {
+	                video.currentTime += time;
+	            } else {
+	                video.currentTime -= time;
+	            }
+
+	            self.setState({
+	                currentTime: video.currentTime
+	            });
+	        }
+	    }, {
+	        key: "onArrowClick",
+	        value: function onArrowClick(e) {
+	            var video = document.getElementById("video_" + this.props.counter);
+	            var self = this;
+
+	            switch (e.which) {
+	                case 37:
+	                    e.preventDefault();
+	                    self.rewind(parseInt(video.duration / 10), false);
+	                    break;
+	                case 39:
+	                    e.preventDefault();
+	                    self.rewind(parseInt(video.duration / 10), true);
+	                    break;
+	                case 32:
+	                    e.preventDefault();
+	                    if (self.state.play) {
+	                        self.pauseVideo(e);
+	                    } else {
+	                        self.playVideo(e);
+	                    }
+	                    break;
+	                default:
+	                    e.preventDefault();
+	            }
+	        }
+	    }, {
 	        key: "requestFullScreen",
 	        value: function requestFullScreen(e) {
 	            var video = document.getElementById("video_" + this.props.counter);
@@ -244,9 +310,7 @@
 	        }
 	    }, {
 	        key: "progressControllerOnMouseMove",
-	        value: function progressControllerOnMouseMove(e) {
-	            console.log(e);
-	        }
+	        value: function progressControllerOnMouseMove(e) {}
 	    }, {
 	        key: "render",
 	        value: function render() {
@@ -256,6 +320,10 @@
 	                var hours = time.hours < 10 ? "0" + time.hours : time.hours;
 	                var minutes = time.minutes < 10 ? "0" + time.minutes : time.minutes;
 	                var seconds = time.seconds < 10 ? "0" + time.seconds : time.seconds;
+
+	                if (!minutes || !seconds) {
+	                    return "";
+	                }
 
 	                if (hours < 1) {
 	                    return minutes + ":" + seconds;
@@ -285,15 +353,18 @@
 	                        id: "video_" + this.props.counter,
 	                        onTimeUpdate: this.onTimeUpdate,
 	                        onLoadedData: this.onLoadedData,
-	                        onEnded: this.onEnded
+	                        onEnded: this.onEnded,
+	                        onKeyPress: this.onArrowClick, onKeyDown: this.onArrowClick
 	                    },
 	                    _react2.default.createElement("source", { src: this.props.videoSrc, type: "video/mp4" }),
 	                    "Your browser does not support HTML5 video."
 	                ),
-	                _react2.default.createElement("div", { className: "video-cover", onClick: this.state.play ? this.pauseVideo : this.playVideo }),
+	                _react2.default.createElement("input", { type: "text", className: "hidden_input", id: "video_input_" + this.props.counter,
+	                    onKeyPress: this.onArrowClick, onKeyDown: this.onArrowClick }),
+	                _react2.default.createElement("div", { className: "video-cover", id: "video_cover_" + this.props.counter, onClick: this.coverOnClick }),
 	                this.state.mouseOver || !this.state.play ? _react2.default.createElement(
 	                    "div",
-	                    { className: "video-controls" },
+	                    { className: "video-controls", onKeyPress: this.onArrowClick, onKeyDown: this.onArrowClick },
 	                    _react2.default.createElement(
 	                        "div",
 	                        { className: "video-progress" },
