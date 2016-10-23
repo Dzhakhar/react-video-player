@@ -26,6 +26,8 @@ render(<VideoPlayer videoSrc="http://site.com/myawesomevideo.mp4"/>,
 
 #contributing
 ```
+https://github.com/Dzhakhar/react-video-player.git dureact
+cd dureact
 npm install
 webpack --watch --progress --colors
 google-chrome demo.html // open demo.html in your browser
