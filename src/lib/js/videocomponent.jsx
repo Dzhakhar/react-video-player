@@ -9,7 +9,6 @@ class VideoPlayer extends React.Component {
             currentTime: undefined,
             duration: undefined,
             ended: false,
-            dragok: false,
             mouseOver: true,
             fullscreen: false,
             inputActive: false
@@ -23,13 +22,12 @@ class VideoPlayer extends React.Component {
         this.parseTime = this.parseTime.bind(this);
         this.onLoadedData = this.onLoadedData.bind(this);
         this.onEnded = this.onEnded.bind(this);
-        this.progressControllerOnClick = this.progressControllerOnClick.bind(this);
-        this.progressControllerOnMouseMove = this.progressControllerOnMouseMove.bind(this);
-        this.progressControllerOnMouseUp = this.progressControllerOnMouseUp.bind(this);
         this.requestFullScreen = this.requestFullScreen.bind(this);
         this.exitFullScreen = this.exitFullScreen.bind(this);
         this.rewind = this.rewind.bind(this);
         this.onArrowClick = this.onArrowClick.bind(this);
+        this.getOffset = this.getOffset.bind(this);
+        this.playFrom = this.playFrom.bind(this);
     }
 
     parseTime(sec) {
@@ -145,7 +143,7 @@ class VideoPlayer extends React.Component {
                 break;
             case 32:
                 e.preventDefault();
-                if(self.state.play) {
+                if (self.state.play) {
                     self.pauseVideo(e);
                 } else {
                     self.playVideo(e);
@@ -180,19 +178,31 @@ class VideoPlayer extends React.Component {
         }
     }
 
-    progressControllerOnClick(e) {
-        this.setState({
-            dragok: true
-        })
+    getOffset(evt) {
+        var el = evt.target,
+            x = 0,
+            y = 0;
+
+        while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+            x += el.offsetLeft - el.scrollLeft;
+            y += el.offsetTop - el.scrollTop;
+            el = el.offsetParent;
+        }
+
+        x = evt.clientX - x;
+        y = evt.clientY - y;
+        let pr = x / evt.target.offsetWidth;
+        this.playFrom((60000 * pr) / 1000 % 60);
     }
 
-    progressControllerOnMouseUp(e) {
+    playFrom(sec) {
+        let video = document.getElementById("video_" + this.props.counter);
+        video.pause();
+        video.currentTime = sec;
         this.setState({
-            dragok: false
+            currentTime: video.currentTime
         })
-    }
-
-    progressControllerOnMouseMove(e) {
+        video.play();
     }
 
     render() {
@@ -244,17 +254,15 @@ class VideoPlayer extends React.Component {
             </div>
 
             {(this.state.mouseOver || !this.state.play) ?
-                <div className="video-controls" onKeyPress={this.onArrowClick} onKeyDown={this.onArrowClick}>
-                    <div className="video-progress">
+                <div className="video-controls"
+                     onKeyPress={this.onArrowClick} onKeyDown={this.onArrowClick}>
+                    <div className="video-progress"
+                         onClick={this.getOffset}
+                    >
                         <div className="full"
                              style={{width: (this.state.percentage > 0) ? this.state.percentage + "%" : "0%"}}>
                         <span
-                            className="progress-controller"
-                            onClick={this.progressControllerOnClick}
-                            onMouseMove={(this.state.dragok) ? this.progressControllerOnMouseMove : ()=> {
-                                return false
-                            }}
-                            onMouseUp={this.progressControllerOnMouseUp}></span>
+                            className="progress-controller"></span>
                         </div>
                         <div className="loaded"></div>
                     </div>
