@@ -19,9 +19,7 @@ render(<VideoPlayer videoSrc="http://site.com/myawesomevideo.mp4"/>,
 ```
 
 # props
-```javascript
 **startFrom** - <Integer> start point of video 
-```
 
 
 ```html
