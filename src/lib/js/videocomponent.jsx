@@ -46,6 +46,13 @@ class VideoPlayer extends React.Component {
         let self = this;
         let video = document.getElementById("video_" + this.props.counter);
 
+        if(this.props.startFrom){
+            this.setState({
+                play: true
+            })
+            this.playFrom(parseInt(this.props.startFrom));
+        }
+
         if (this.state.inputActive) {
             document.getElementById("video_input_" + this.props.counter).focus();
         }

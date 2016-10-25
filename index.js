@@ -72,6 +72,13 @@ var VideoPlayer = function (_React$Component) {
             var self = this;
             var video = document.getElementById("video_" + this.props.counter);
 
+            if (this.props.startFrom) {
+                this.setState({
+                    play: true
+                });
+                this.playFrom(parseInt(this.props.startFrom));
+            }
+
             if (this.state.inputActive) {
                 document.getElementById("video_input_" + this.props.counter).focus();
             }
@@ -214,20 +221,21 @@ var VideoPlayer = function (_React$Component) {
     }, {
         key: "getOffset",
         value: function getOffset(evt) {
-            var el = evt.target,
+            var el = evt.currentTarget,
                 x = 0,
                 y = 0;
-
             while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
                 x += el.offsetLeft - el.scrollLeft;
                 y += el.offsetTop - el.scrollTop;
                 el = el.offsetParent;
             }
-
             x = evt.clientX - x;
             y = evt.clientY - y;
-            var pr = x / evt.target.offsetWidth;
-            this.playFrom(60000 * pr / 1000 % 60);
+            var video = document.getElementById("video_" + this.props.counter);
+            var ratio = evt.currentTarget.offsetWidth / x;
+            var res = video.duration / ratio;
+
+            this.playFrom(res);
         }
     }, {
         key: "playFrom",
