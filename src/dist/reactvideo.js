@@ -307,8 +307,12 @@
 
 	            x = evt.clientX - x;
 	            y = evt.clientY - y;
+
+	            var video = document.getElementById("video_" + this.props.counter);
 	            var pr = x / evt.target.offsetWidth;
-	            this.playFrom(60000 * pr / 1000 % 60);
+	            var s = video.duration * pr;
+	            console.log(pr);
+	            this.playFrom(s);
 	        }
 	    }, {
 	        key: "playFrom",

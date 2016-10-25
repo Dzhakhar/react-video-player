@@ -191,8 +191,12 @@ class VideoPlayer extends React.Component {
 
         x = evt.clientX - x;
         y = evt.clientY - y;
+
+        let video = document.getElementById("video_" + this.props.counter);
         let pr = x / evt.target.offsetWidth;
-        this.playFrom((60000 * pr) / 1000 % 60);
+        let s = video.duration * pr;
+        console.log(pr);
+        this.playFrom(s);
     }
 
     playFrom(sec) {

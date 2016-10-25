@@ -31,7 +31,6 @@ var VideoPlayer = function (_React$Component) {
             currentTime: undefined,
             duration: undefined,
             ended: false,
-            dragok: false,
             mouseOver: true,
             fullscreen: false,
             inputActive: false
@@ -45,13 +44,12 @@ var VideoPlayer = function (_React$Component) {
         _this.parseTime = _this.parseTime.bind(_this);
         _this.onLoadedData = _this.onLoadedData.bind(_this);
         _this.onEnded = _this.onEnded.bind(_this);
-        _this.progressControllerOnClick = _this.progressControllerOnClick.bind(_this);
-        _this.progressControllerOnMouseMove = _this.progressControllerOnMouseMove.bind(_this);
-        _this.progressControllerOnMouseUp = _this.progressControllerOnMouseUp.bind(_this);
         _this.requestFullScreen = _this.requestFullScreen.bind(_this);
         _this.exitFullScreen = _this.exitFullScreen.bind(_this);
         _this.rewind = _this.rewind.bind(_this);
         _this.onArrowClick = _this.onArrowClick.bind(_this);
+        _this.getOffset = _this.getOffset.bind(_this);
+        _this.playFrom = _this.playFrom.bind(_this);
         return _this;
     }
 
@@ -214,22 +212,34 @@ var VideoPlayer = function (_React$Component) {
             }
         }
     }, {
-        key: "progressControllerOnClick",
-        value: function progressControllerOnClick(e) {
-            this.setState({
-                dragok: true
-            });
+        key: "getOffset",
+        value: function getOffset(evt) {
+            var el = evt.target,
+                x = 0,
+                y = 0;
+
+            while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+                x += el.offsetLeft - el.scrollLeft;
+                y += el.offsetTop - el.scrollTop;
+                el = el.offsetParent;
+            }
+
+            x = evt.clientX - x;
+            y = evt.clientY - y;
+            var pr = x / evt.target.offsetWidth;
+            this.playFrom(60000 * pr / 1000 % 60);
         }
     }, {
-        key: "progressControllerOnMouseUp",
-        value: function progressControllerOnMouseUp(e) {
+        key: "playFrom",
+        value: function playFrom(sec) {
+            var video = document.getElementById("video_" + this.props.counter);
+            video.pause();
+            video.currentTime = sec;
             this.setState({
-                dragok: false
+                currentTime: video.currentTime
             });
+            video.play();
         }
-    }, {
-        key: "progressControllerOnMouseMove",
-        value: function progressControllerOnMouseMove(e) {}
     }, {
         key: "render",
         value: function render() {
@@ -283,21 +293,19 @@ var VideoPlayer = function (_React$Component) {
                 _react2.default.createElement("div", { className: "video-cover", id: "video_cover_" + this.props.counter, onClick: this.coverOnClick }),
                 this.state.mouseOver || !this.state.play ? _react2.default.createElement(
                     "div",
-                    { className: "video-controls", onKeyPress: this.onArrowClick, onKeyDown: this.onArrowClick },
+                    { className: "video-controls",
+                        onKeyPress: this.onArrowClick, onKeyDown: this.onArrowClick },
                     _react2.default.createElement(
                         "div",
-                        { className: "video-progress" },
+                        { className: "video-progress",
+                            onClick: this.getOffset
+                        },
                         _react2.default.createElement(
                             "div",
                             { className: "full",
                                 style: { width: this.state.percentage > 0 ? this.state.percentage + "%" : "0%" } },
                             _react2.default.createElement("span", {
-                                className: "progress-controller",
-                                onClick: this.progressControllerOnClick,
-                                onMouseMove: this.state.dragok ? this.progressControllerOnMouseMove : function () {
-                                    return false;
-                                },
-                                onMouseUp: this.progressControllerOnMouseUp })
+                                className: "progress-controller" })
                         ),
                         _react2.default.createElement("div", { className: "loaded" })
                     ),
