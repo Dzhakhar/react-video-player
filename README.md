@@ -18,6 +18,12 @@ render(<VideoPlayer videoSrc="http://site.com/myawesomevideo.mp4"/>,
 @import "node_modules/dureact/src/dist/css/style.css"; /* import dureact's style file  */
 ```
 
+# props
+```javascript
+**startFrom** - <Integer> start point of video 
+```
+
+
 ```html
 <!-- include fontawesome css -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
