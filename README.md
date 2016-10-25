@@ -25,7 +25,7 @@ render(<VideoPlayer videoSrc="http://site.com/myawesomevideo.mp4"/>,
 ```
 
 # props
-**startFrom** - &lt;Integer&gt; start point of video 
+**startFrom** - &lt;Integer seconds&gt; start point of video 
 
 
 #contributing
