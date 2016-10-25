@@ -1,6 +1,6 @@
 {
   "name": "dureact",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Dureact is ReactJS video player for html5 compatible browsers",
   "main": "index.js",
   "scripts": {
