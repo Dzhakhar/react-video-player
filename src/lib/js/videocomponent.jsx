@@ -179,24 +179,21 @@ class VideoPlayer extends React.Component {
     }
 
     getOffset(evt) {
-        var el = evt.target,
+        var el = evt.currentTarget,
             x = 0,
             y = 0;
-
         while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
             x += el.offsetLeft - el.scrollLeft;
             y += el.offsetTop - el.scrollTop;
             el = el.offsetParent;
         }
-
         x = evt.clientX - x;
         y = evt.clientY - y;
-
         let video = document.getElementById("video_" + this.props.counter);
-        let pr = x / evt.target.offsetWidth;
-        let s = video.duration * pr;
-        console.log(pr);
-        this.playFrom(s);
+        let ratio = evt.currentTarget.offsetWidth / x;
+        let res = video.duration / ratio;
+
+        this.playFrom(res);
     }
 
     playFrom(sec) {
