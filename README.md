@@ -24,6 +24,13 @@ render(<VideoPlayer videoSrc="http://site.com/myawesomevideo.mp4"/>,
 <div id="myvideos"></div>
 ```
 
+# props
+**startFrom** - &lt;Integer seconds&gt; start point of video
+```javascript
+    <VideoPlayer videoSrc="..." startFrom={10} />
+```
+
+
 #contributing
 ```
 https://github.com/Dzhakhar/react-video-player.git dureact
