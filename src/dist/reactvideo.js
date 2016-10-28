@@ -131,6 +131,7 @@
 	        _this.onArrowClick = _this.onArrowClick.bind(_this);
 	        _this.getOffset = _this.getOffset.bind(_this);
 	        _this.playFrom = _this.playFrom.bind(_this);
+	        _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
 	        return _this;
 	    }
 
@@ -146,6 +147,12 @@
 	                minutes: minutes,
 	                seconds: seconds
 	            };
+	        }
+	    }, {
+	        key: "componentWillReceiveProps",
+	        value: function componentWillReceiveProps(newProps) {
+	            var video = document.getElementById("video_" + this.props.counter);
+	            video.play();
 	        }
 	    }, {
 	        key: "componentDidMount",
