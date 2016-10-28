@@ -252,6 +252,7 @@ class VideoPlayer extends React.Component {
             }}
         >
             <video
+                src={this.props.videoSrc}
                 id={"video_" + this.props.counter}
                 onTimeUpdate={this.onTimeUpdate}
                 onLoadedData={this.onLoadedData}
