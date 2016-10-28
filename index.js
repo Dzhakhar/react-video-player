@@ -294,6 +294,7 @@ var VideoPlayer = function (_React$Component) {
                 _react2.default.createElement(
                     "video",
                     {
+                        src: this.props.videoSrc,
                         id: "video_" + this.props.counter,
                         onTimeUpdate: this.onTimeUpdate,
                         onLoadedData: this.onLoadedData,
