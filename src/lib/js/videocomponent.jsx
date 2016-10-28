@@ -28,6 +28,7 @@ class VideoPlayer extends React.Component {
         this.onArrowClick = this.onArrowClick.bind(this);
         this.getOffset = this.getOffset.bind(this);
         this.playFrom = this.playFrom.bind(this);
+        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
 
     parseTime(sec) {
@@ -40,6 +41,11 @@ class VideoPlayer extends React.Component {
             minutes: minutes,
             seconds: seconds
         }
+    }
+
+    componentWillReceiveProps(newProps){
+        let video = document.getElementById("video_" + this.props.counter);
+        video.play();
     }
 
     componentDidMount() {
