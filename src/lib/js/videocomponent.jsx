@@ -43,16 +43,25 @@ class VideoPlayer extends React.Component {
         }
     }
 
-    componentWillReceiveProps(newProps){
-        let video = document.getElementById("video_" + this.props.counter);
-        video.play();
+    componentWillReceiveProps(newProps) {
+        this.setState({
+            play: false,
+            currentTime: undefined,
+            duration: undefined,
+            ended: false,
+            mouseOver: true,
+            fullscreen: false,
+            inputActive: false
+        });
+
+        this.componentDidMount();
     }
 
     componentDidMount() {
         let self = this;
         let video = document.getElementById("video_" + this.props.counter);
 
-        if(this.props.startFrom){
+        if (this.props.startFrom) {
             this.setState({
                 play: true
             })
