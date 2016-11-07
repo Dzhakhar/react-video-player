@@ -10,8 +10,7 @@ class VideoPlayer extends React.Component {
             duration: undefined,
             ended: false,
             mouseOver: true,
-            fullscreen: false,
-            inputActive: false
+            fullscreen: false
         }
 
         this.coverOnClick = this.coverOnClick.bind(this);
@@ -29,6 +28,11 @@ class VideoPlayer extends React.Component {
         this.getOffset = this.getOffset.bind(this);
         this.playFrom = this.playFrom.bind(this);
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+        this.onProgress = this.onProgress.bind(this);
+    }
+
+    onProgress(e){
+        console.log(e);
     }
 
     parseTime(sec) {
@@ -50,8 +54,7 @@ class VideoPlayer extends React.Component {
             duration: undefined,
             ended: false,
             mouseOver: true,
-            fullscreen: false,
-            inputActive: false
+            fullscreen: false
         });
 
         this.componentDidMount();
@@ -67,23 +70,13 @@ class VideoPlayer extends React.Component {
             })
             this.playFrom(parseInt(this.props.startFrom));
         }
-
-        if (this.state.inputActive) {
-            document.getElementById("video_input_" + this.props.counter).focus();
-        }
-
-        video.addEventListener('loadstart', function (e) {
-        })
-
-        video.addEventListener("timeupdate", function (e) {
-
-        })
     }
 
     onLoadedData(e) {
         let self = this;
         let video = e.target;
-
+        console.log(video.buffered);
+        window.v = video;
         self.setState({
             duration: self.parseTime(video.duration)
         })
@@ -124,14 +117,6 @@ class VideoPlayer extends React.Component {
     }
 
     coverOnClick(e) {
-        let self = this;
-
-        self.setState({
-            inputActive: true
-        }, ()=> {
-            document.getElementById("video_input_" + this.props.counter).focus();
-        })
-
         return (this.state.play) ? this.pauseVideo(e) : this.playVideo(e);
     }
 
@@ -261,6 +246,7 @@ class VideoPlayer extends React.Component {
             }}
         >
             <video
+                onProgress={this.onProgress}
                 src={this.props.videoSrc}
                 id={"video_" + this.props.counter}
                 onTimeUpdate={this.onTimeUpdate}
@@ -272,9 +258,7 @@ class VideoPlayer extends React.Component {
                 Your browser does not support HTML5 video.
             </video>
 
-            <input type="text" className="hidden_input" id={"video_input_" + this.props.counter}
-                   onKeyPress={this.onArrowClick} onKeyDown={this.onArrowClick}/>
-            <div className="video-cover" id={"video_cover_" + this.props.counter} onClick={this.coverOnClick}>
+            <div className="video-cover" tabIndex="1" onKeyPress={this.onArrowClick} onKeyDown={this.onArrowClick} id={"video_cover_" + this.props.counter} onClick={this.coverOnClick}>
             </div>
 
             {(this.state.mouseOver || !this.state.play) ?

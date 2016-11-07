@@ -176,8 +176,7 @@
 	            duration: undefined,
 	            ended: false,
 	            mouseOver: true,
-	            fullscreen: false,
-	            inputActive: false
+	            fullscreen: false
 	        };
 
 	        _this.coverOnClick = _this.coverOnClick.bind(_this);
@@ -195,10 +194,16 @@
 	        _this.getOffset = _this.getOffset.bind(_this);
 	        _this.playFrom = _this.playFrom.bind(_this);
 	        _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
+	        _this.onProgress = _this.onProgress.bind(_this);
 	        return _this;
 	    }
 
 	    _createClass(VideoPlayer, [{
+	        key: "onProgress",
+	        value: function onProgress(e) {
+	            console.log(e);
+	        }
+	    }, {
 	        key: "parseTime",
 	        value: function parseTime(sec) {
 	            var minutes = Math.floor(sec / 60);
@@ -220,8 +225,7 @@
 	                duration: undefined,
 	                ended: false,
 	                mouseOver: true,
-	                fullscreen: false,
-	                inputActive: false
+	                fullscreen: false
 	            });
 
 	            this.componentDidMount();
@@ -238,21 +242,14 @@
 	                });
 	                this.playFrom(parseInt(this.props.startFrom));
 	            }
-
-	            if (this.state.inputActive) {
-	                document.getElementById("video_input_" + this.props.counter).focus();
-	            }
-
-	            video.addEventListener('loadstart', function (e) {});
-
-	            video.addEventListener("timeupdate", function (e) {});
 	        }
 	    }, {
 	        key: "onLoadedData",
 	        value: function onLoadedData(e) {
 	            var self = this;
 	            var video = e.target;
-
+	            console.log(video.buffered);
+	            window.v = video;
 	            self.setState({
 	                duration: self.parseTime(video.duration)
 	            });
@@ -298,16 +295,6 @@
 	    }, {
 	        key: "coverOnClick",
 	        value: function coverOnClick(e) {
-	            var _this2 = this;
-
-	            var self = this;
-
-	            self.setState({
-	                inputActive: true
-	            }, function () {
-	                document.getElementById("video_input_" + _this2.props.counter).focus();
-	            });
-
 	            return this.state.play ? this.pauseVideo(e) : this.playVideo(e);
 	        }
 	    }, {
@@ -447,6 +434,7 @@
 	                _react2.default.createElement(
 	                    "video",
 	                    {
+	                        onProgress: this.onProgress,
 	                        src: this.props.videoSrc,
 	                        id: "video_" + this.props.counter,
 	                        onTimeUpdate: this.onTimeUpdate,
@@ -457,9 +445,7 @@
 	                    _react2.default.createElement("source", { src: this.props.videoSrc, type: "video/mp4" }),
 	                    "Your browser does not support HTML5 video."
 	                ),
-	                _react2.default.createElement("input", { type: "text", className: "hidden_input", id: "video_input_" + this.props.counter,
-	                    onKeyPress: this.onArrowClick, onKeyDown: this.onArrowClick }),
-	                _react2.default.createElement("div", { className: "video-cover", id: "video_cover_" + this.props.counter, onClick: this.coverOnClick }),
+	                _react2.default.createElement("div", { className: "video-cover", tabIndex: "1", onKeyPress: this.onArrowClick, onKeyDown: this.onArrowClick, id: "video_cover_" + this.props.counter, onClick: this.coverOnClick }),
 	                this.state.mouseOver || !this.state.play ? _react2.default.createElement(
 	                    "div",
 	                    { className: "video-controls",

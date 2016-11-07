@@ -70,8 +70,17 @@ var VideoPlayer = function (_React$Component) {
     }, {
         key: "componentWillReceiveProps",
         value: function componentWillReceiveProps(newProps) {
-            var video = document.getElementById("video_" + this.props.counter);
-            video.play();
+            this.setState({
+                play: false,
+                currentTime: undefined,
+                duration: undefined,
+                ended: false,
+                mouseOver: true,
+                fullscreen: false,
+                inputActive: false
+            });
+
+            this.componentDidMount();
         }
     }, {
         key: "componentDidMount",
