@@ -21,16 +21,6 @@
   cursor: pointer;
   z-index: 2147483647;
 }
-.react-video-player .hidden_input {
-  z-index: 0;
-  filter: alpha(opacity=0);
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 0;
-  opacity: 0;
-  height: 0;
-}
 .react-video-player .video-controls {
   transition: .5s;
   background: transparent;
