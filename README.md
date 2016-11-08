@@ -1,6 +1,8 @@
 # dureact
 Dureact is ReactJS video player for html5 compatible browsers
 
+http://google.com
+
 # usage
 ```
 npm install dureact
